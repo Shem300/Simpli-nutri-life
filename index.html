@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Simpli Nutri-Life Cooking Program</title>
-<meta name="description" content="A weekly cooking and nutrition program for people living with sickle cell disease and their caregivers, at Vaughan Community Health Centre in Maple, Ontario.">
+<meta name="description" content="A free weekly cooking and nutrition program for people living with sickle cell disease and their caregivers, at Vaughan Community Health Centre in Maple, Ontario.">
 <link rel="canonical" href="https://simplinutrilife.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Simpli Nutri-Life">
 <meta property="og:title" content="Simpli Nutri-Life Cooking Program">
-<meta property="og:description" content="A weekly cooking and nutrition program for people living with sickle cell disease and their caregivers, at Vaughan Community Health Centre in Maple, Ontario.">
+<meta property="og:description" content="A free weekly cooking and nutrition program for people living with sickle cell disease and their caregivers, at Vaughan Community Health Centre in Maple, Ontario.">
 <meta property="og:url" content="https://simplinutrilife.com/">
 <meta property="og:image" content="https://simplinutrilife.com/share-image.png">
 <meta property="og:image:width" content="1200">
@@ -238,6 +238,19 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 .badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:var(--scrim);color:var(--on-scrim);font-size:var(--fs-xs);font-weight:700;pointer-events:none}
 .cap{font-size:var(--fs-sm);color:var(--muted);line-height:1.4;margin:0}
 
+/* faq */
+.faq{max-width:900px;border-bottom:0;position:relative;padding-bottom:8px}
+.faq::after{content:"";position:absolute;inset:auto 0 0;height:8px;background:radial-gradient(circle,var(--dots) 2px,transparent 2.6px) 0 50%/14px 8px repeat-x}
+.faq details{position:relative}
+.faq details::before{content:"";position:absolute;inset:0 0 auto;height:8px;background:radial-gradient(circle,var(--dots) 2px,transparent 2.6px) 0 50%/14px 8px repeat-x}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0 20px;font-family:var(--display);font-weight:400;font-size:clamp(1.25rem,2.4vw,1.625rem);line-height:1.2;text-wrap:balance}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";width:38px;height:38px;flex:none;border-radius:50%;border:2px solid var(--fg);background:linear-gradient(var(--fg),var(--fg)) center/14px 2px no-repeat,linear-gradient(var(--fg),var(--fg)) center/2px 14px no-repeat;transition:transform .25s ease,background-color .2s}
+.faq details[open] summary::after{background:linear-gradient(var(--fg),var(--fg)) center/14px 2px no-repeat;transform:rotate(180deg)}
+.faq summary:hover::after{background-color:var(--panel)}
+.faq .ans{display:grid;gap:10px;padding:0 54px 24px 0;max-width:64ch;font-size:var(--fs-md);color:var(--muted)}
+.faq .ans a{font-weight:700;color:var(--fg);text-decoration:underline 2px;text-decoration-color:var(--dots);text-underline-offset:4px;overflow-wrap:anywhere}
+
 /* resources */
 .res{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
 .rs{background:var(--card);border:2px solid var(--rule);border-radius:22px;padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -356,6 +369,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
   .about,.reg{grid-template-columns:1fr}
 }
 @media (max-width:760px){
+  .faq .ans{padding-right:0}
   .brand-name{font-size:1.125rem}
   #heroSlot{width:min(52vw,220px)}
   .facts{grid-template-columns:1fr;gap:16px}
@@ -413,6 +427,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
           <li><a href="#photos">Photos</a></li>
           <li><a href="#menu">Recipes</a></li>
           <li><a href="#visit">Visit</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="#resources">Resources</a></li>
         </ul>
       </nav>
@@ -433,7 +448,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
         <div id="heroSlot"><span class="logo roll" role="img" aria-label="Simpli Nutri-Life Cooking Program logo"></span></div>
       </div>
       <div class="hero-foot">
-        <p class="lede">A weekly cooking and nutrition program for people living with sickle cell disease and their caregivers.</p>
+        <p class="lede">A free weekly cooking and nutrition program for people living with sickle cell disease and their caregivers.</p>
         <div class="cta">
           <a class="btn btn-solid" href="#register">Register</a>
           <a class="btn btn-line" href="#menu">See what we cook</a>
@@ -590,10 +605,62 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
         <div class="vi">
           <p class="eyebrow">Where</p>
           <p class="v">Vaughan Community Health Centre<br>9401 Jane St, Suite 106 (Entrance A)<br>Maple, ON L6A 4H7</p>
+          <p>Free parking. Wheelchair accessible.</p>
           <a class="btn btn-line btn-sm" href="https://www.google.com/maps/search/?api=1&amp;query=9401%20Jane%20St%20Suite%20106%20Maple%20ON%20L6A%204H7" target="_blank" rel="noopener">Open in Google Maps</a>
         </div>
         <div class="vi"><p class="eyebrow">Getting there</p><p class="v">YRT transportation support is provided. Mention it when you register.</p></div>
-        <div class="vi"><p class="eyebrow">Who it's for</p><p class="v">People living with sickle cell disease, plus caregivers and family.</p></div>
+        <div class="vi"><p class="eyebrow">Who it's for</p><p class="v">Everyone. Built for people living with sickle cell and their caregivers, and open to all.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Good to know<span class="dot">.</span></h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Does it cost anything?</summary>
+          <div class="ans"><p>No. Simpli Nutri-Life is free for everyone.</p></div>
+        </details>
+        <details>
+          <summary>Who can come?</summary>
+          <div class="ans"><p>Everyone is welcome, at any age. If you're under 18, we recommend coming with an adult.</p></div>
+        </details>
+        <details>
+          <summary>Do I have to sign up for all five weeks?</summary>
+          <div class="ans"><p>No. Register for all five weeks or one week at a time, whichever works for you. You can join partway through, too.</p></div>
+        </details>
+        <details>
+          <summary>Is there a limit on spots?</summary>
+          <div class="ans"><p>No. There's room for everyone.</p></div>
+        </details>
+        <details>
+          <summary>What should I bring?</summary>
+          <div class="ans"><p>Nothing. Come a little hungry and ready to learn something new.</p></div>
+        </details>
+        <details>
+          <summary>I have allergies or dietary needs. What should I do?</summary>
+          <div class="ans"><p>Let us know at least 24 hours before the session and we'll plan something for you. That includes allergies, vegetarian, nut-free and halal.</p><p>Email Zaynah at <a href="mailto:zcadogan@vaughanchc.com">zcadogan@vaughanchc.com</a> or call <a href="tel:+19053038490,2687">905-303-8490 ext. 2687</a>.</p></div>
+        </details>
+        <details>
+          <summary>How does the YRT transportation support work?</summary>
+          <div class="ans"><p>We provide YRT bus passes to participants who need them. Pick yours up when you arrive, and mention it when you register.</p></div>
+        </details>
+        <details>
+          <summary>Is there parking? Is it wheelchair accessible?</summary>
+          <div class="ans"><p>Yes to both. Parking is free, and the centre is wheelchair accessible. Use Entrance A for Suite 106.</p></div>
+        </details>
+        <details>
+          <summary>What if I'm feeling unwell or having a pain crisis?</summary>
+          <div class="ans"><p>Medical staff are on site during every session, and the hospital is a short distance away. Tell a facilitator right away if you start to feel unwell.</p><p>If you're not up to coming, rest. You can come back any week. In an emergency, call 911.</p></div>
+        </details>
+        <details>
+          <summary>Will there be another run after November 25?</summary>
+          <div class="ans"><p>Yes, we're planning one, and we hope to grow it. Follow <a href="https://www.instagram.com/simplinutrilife/" target="_blank" rel="noopener">@simplinutrilife</a> on Instagram for the next dates.</p></div>
+        </details>
       </div>
     </div>
   </section>
