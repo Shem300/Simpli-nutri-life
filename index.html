@@ -36,6 +36,7 @@
   --fs-lg:clamp(1.375rem,2.4vw,1.75rem); --fs-xl:clamp(2.25rem,5.2vw,3.75rem);
   --fs-word:clamp(3rem,7.5vw,6rem); --fs-hero:clamp(3.5rem,7.6vw,6.75rem);
   --p:1;
+  --scrim:rgba(14,21,38,.72); --on-scrim:#FFFFFF; --print-fg:#000000; --print-bg:#FFFFFF;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -74,7 +75,7 @@ a{color:inherit}
 .band .dot{color:var(--band-accent)}
 h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height:1.04;letter-spacing:-.005em;margin:0}
 .sec-head{display:grid;gap:12px;margin-bottom:clamp(28px,4vw,52px);max-width:780px}
-.sub{font-size:var(--fs-md);color:var(--muted);max-width:52ch}
+.sub{font-size:var(--fs-md);color:var(--muted);max-width:52ch;text-wrap:pretty}
 .band .sub{color:var(--band-muted)}
 
 /* dotted rule, same rhythm as the logo ring */
@@ -135,6 +136,10 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 .facts li{display:grid;justify-items:center;text-align:center;gap:4px;padding-top:20px;position:relative;min-width:0}
 .facts li::before{content:"";position:absolute;inset:0 0 auto;height:8px;background:radial-gradient(circle,var(--dots) 2px,transparent 2.6px) 0 50%/14px 8px repeat-x}
 .facts .v{font-weight:700;font-size:var(--fs-md);line-height:1.35}
+.next{display:inline-flex;align-items:center;gap:10px;margin:0;padding:9px 18px;border-radius:999px;background:var(--panel);font-weight:700;font-size:var(--fs-sm);text-align:left}
+.next::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);flex:none}
+.next.live::before{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.3}}
 .partners{margin-top:24px;font-size:var(--fs-sm);color:var(--muted);text-align:center}
 
 /* pillars */
@@ -171,7 +176,13 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 .topics{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 20px;color:var(--muted);font-size:var(--fs-sm)}
 .topics li{display:flex;align-items:center;gap:8px}
 .topics li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--muted);flex:none}
-.more{padding-top:28px;position:relative;color:var(--muted);max-width:62ch}
+.sec-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.sdate{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0;font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.state{display:none;padding:3px 10px;border-radius:999px;letter-spacing:.08em}
+.sessions>li.is-next .state{display:inline-block;background:var(--dots);color:var(--on-dots)}
+.sessions>li.is-done .state{display:inline-block;border:1.5px solid var(--rule);color:var(--fg)}
+.sessions>li.is-next .num{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.sessions>li.is-done .num{background:var(--panel)}
 .more::before{content:"";position:absolute;inset:0 0 auto;height:8px;background:radial-gradient(circle,var(--dots) 2px,transparent 2.6px) 0 50%/14px 8px repeat-x}
 
 /* recipes */
@@ -208,6 +219,36 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 .rd-contains{font-size:var(--fs-sm);color:var(--muted)}
 .rd-contains b{color:var(--fg)}
 .ing-group{font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 2px}
+
+/* photo and video recaps */
+.recaps{display:grid;gap:clamp(40px,6vw,72px)}
+.recap{display:grid;gap:16px;min-width:0}
+.recap-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.recap-head h3{font-family:var(--display);font-weight:400;font-size:var(--fs-lg);line-height:1.1;margin:6px 0 0}
+.recap-nav{display:flex;align-items:center;gap:10px}
+.count{font-size:var(--fs-sm);font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;min-width:5ch;text-align:right}
+.arrow{width:44px;height:44px;border-radius:50%;border:2px solid var(--fg);background:transparent;color:var(--fg);display:grid;place-items:center;cursor:pointer;padding:0;transition:background-color .2s,color .2s,opacity .2s}
+.arrow:hover:not(:disabled){background:var(--fg);color:var(--bg)}
+.arrow:disabled{opacity:.3;cursor:default}
+.arrow svg{width:18px;height:18px}
+.strip{--sh:clamp(320px,46vw,460px);position:relative;list-style:none;margin:0;padding:0 0 14px;display:flex;align-items:flex-start;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:var(--dots) transparent}
+.shot{flex:0 0 auto;width:min(calc(var(--sh) * var(--ar)),84vw);scroll-snap-align:start;display:grid;gap:8px;margin:0}
+.media{position:relative;aspect-ratio:var(--ar);max-width:100%;border-radius:18px;overflow:hidden;background:var(--panel)}
+.media img,.media video{display:block;width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:var(--scrim);color:var(--on-scrim);font-size:var(--fs-xs);font-weight:700;pointer-events:none}
+.cap{font-size:var(--fs-sm);color:var(--muted);line-height:1.4;margin:0}
+
+/* resources */
+.res{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
+.rs{background:var(--card);border:2px solid var(--rule);border-radius:22px;padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;gap:10px;min-width:0}
+.rs .tag{font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.rs h3{font-family:var(--display);font-weight:400;font-size:clamp(1.375rem,2.2vw,1.625rem);line-height:1.1;margin:0}
+.rs p{color:var(--muted)}
+.rs .links{margin-top:auto;display:grid;gap:6px;padding-top:16px;position:relative}
+.rs .links::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:radial-gradient(circle,var(--dots) 1.6px,transparent 2.2px) 0 50%/10px 6px repeat-x}
+.rs .links a,.emerg a{font-weight:700;color:var(--fg);text-decoration:underline 2px;text-decoration-color:var(--dots);text-underline-offset:4px;overflow-wrap:anywhere}
+.emerg{margin:20px 0 0;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:16px 20px;border:2px dashed var(--dots);border-radius:18px}
+.emerg b{font-family:var(--display);font-weight:400;font-size:1.125rem}
 
 /* recipe dialog */
 .lock{overflow:hidden}
@@ -253,7 +294,16 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 .remind{border:2px dashed var(--dots);border-radius:20px;padding:clamp(16px,2.4vw,24px);display:grid;gap:8px}
 .remind h3{margin:0;font-size:var(--fs-md)}
 .remind p{font-size:var(--fs-sm);color:var(--muted);max-width:72ch}
-.rd-foot{display:flex;justify-content:flex-end}
+.rd-foot{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
+.rd-actions{display:flex;flex-wrap:wrap;gap:10px}
+.framed [data-print],.framed .cal{display:none}
+
+/* printing a recipe */
+#printArea{display:none}
+.pr-head{display:flex;align-items:center;gap:12px;padding-bottom:10px;margin-bottom:14px;border-bottom:1.5px solid var(--print-fg)}
+.pr-head .logo{width:48px;flex:none;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pr-head b{font-family:var(--display);font-weight:400;font-size:16pt}
+.pr-site{margin-left:auto;font-size:9pt}
 
 /* visit */
 .visit{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px 32px}
@@ -306,7 +356,6 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
   .about,.reg{grid-template-columns:1fr}
 }
 @media (max-width:760px){
-  .nav ul{display:none}
   .brand-name{font-size:1.125rem}
   #heroSlot{width:min(52vw,220px)}
   .facts{grid-template-columns:1fr;gap:16px}
@@ -318,6 +367,28 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
   .rd-meta{gap:12px}
   .row{grid-template-columns:1fr}
   .care{flex-direction:column;gap:6px}
+}
+@media (max-width:1080px){
+  .nav ul{display:none}
+}
+@media print{
+  @page{margin:14mm}
+  html,body{background:var(--print-bg)!important}
+  body::before{display:none}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important;color:var(--print-fg);font-size:10.5pt}
+  #printArea *{color:var(--print-fg)!important;box-shadow:none!important}
+  #printArea .rd{padding:0;gap:14px}
+  #printArea .rd h2{font-size:24pt}
+  #printArea .rd-cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #printArea .rd-meta li::before,#printArea .ings li+li::before{display:none}
+  #printArea .rd-meta li{padding-top:0}
+  #printArea .ings li{padding-block:5px;border-top:1px dotted var(--print-fg)}
+  #printArea .steps li::before{border:1.5px solid var(--print-fg)}
+  #printArea .remind{border:1px solid var(--print-fg)}
+  #printArea .chip{border:0;padding:0 16px 0 0;font-weight:400}
+  #printArea .chip::before{display:none}
+  #printArea section,#printArea .remind,#printArea li{break-inside:avoid}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -339,8 +410,10 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#sessions">Sessions</a></li>
+          <li><a href="#photos">Photos</a></li>
           <li><a href="#menu">Recipes</a></li>
           <li><a href="#visit">Visit</a></li>
+          <li><a href="#resources">Resources</a></li>
         </ul>
       </nav>
       <a class="btn btn-solid btn-sm" href="#register">Register</a>
@@ -365,9 +438,10 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
           <a class="btn btn-solid" href="#register">Register</a>
           <a class="btn btn-line" href="#menu">See what we cook</a>
         </div>
+        <p class="next" id="nextSession">Wednesdays, October 28 to November 25</p>
       </div>
       <ul class="facts">
-        <li><span class="eyebrow">When</span><span class="v">Wednesdays, 6:00 to 7:30 pm</span></li>
+        <li><span class="eyebrow">When</span><span class="v">Wednesdays, 6:00 to 7:30 pm<br>Oct 28 to Nov 25</span></li>
         <li><span class="eyebrow">Where</span><span class="v">Vaughan Community Health Centre, Maple</span></li>
         <li><span class="eyebrow">Getting there</span><span class="v">YRT transportation support provided</span></li>
       </ul>
@@ -429,51 +503,67 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
       <div class="sec-head">
         <p class="eyebrow">The sessions</p>
         <h2>What we cover<span class="dot">.</span></h2>
-        <p class="sub">Wednesdays, 6:00 to 7:30 pm. A calendar with dates is coming soon.</p>
+        <p class="sub">Five Wednesdays, 6:00 to 7:30 pm, from October 28 to November 25.</p>
+        <div class="sec-actions"><a class="btn btn-line btn-sm cal" href="sessions.ics">Add the dates to my calendar</a></div>
       </div>
       <ol class="sessions">
-        <li>
+        <li data-week="1">
           <span class="num" aria-hidden="true">1</span>
           <div class="sbody">
+            <p class="sdate"><span>Week 1 · Wed, Oct 28</span><span class="state"></span></p>
             <h3>Understanding Nutrition and SCD</h3>
             <p>What your body needs to build healthy red blood cells and keep them hydrated.</p>
             <ul class="topics"><li>Macro and micronutrients for SCD</li><li>Food for hemoglobin and immune health</li><li>Why hydration matters</li></ul>
           </div>
         </li>
-        <li>
+        <li data-week="2">
           <span class="num" aria-hidden="true">2</span>
           <div class="sbody">
+            <p class="sdate"><span>Week 2 · Wed, Nov 4</span><span class="state"></span></p>
             <h3>Meal Planning Made Simple</h3>
             <p>Plan a week of balanced meals that fits your goals and your grocery budget.</p>
             <ul class="topics"><li>Balance and portion size</li><li>Reading nutrition labels</li><li>Budget grocery planning</li></ul>
           </div>
         </li>
-        <li>
+        <li data-week="3">
           <span class="num" aria-hidden="true">3</span>
           <div class="sbody">
+            <p class="sdate"><span>Week 3 · Wed, Nov 11</span><span class="state"></span></p>
             <h3>Smart Shopping and Food Prep Lab</h3>
             <p>Hands-on prep with affordable, nutrient-dense foods.</p>
             <ul class="topics"><li>Whole grains, leafy greens, lean proteins</li><li>Batch cooking and leftovers</li><li>Snacks that keep you going</li></ul>
           </div>
         </li>
-        <li>
+        <li data-week="4">
           <span class="num" aria-hidden="true">4</span>
           <div class="sbody">
+            <p class="sdate"><span>Week 4 · Wed, Nov 18</span><span class="state"></span></p>
             <h3>Hydration, Supplements and Self-Care</h3>
             <p>How fluids affect your energy and circulation, and when to talk to your doctor or dietitian about supplements.</p>
             <ul class="topics"><li>Water through the day</li><li>Electrolytes and coconut water</li><li>Questions about folic acid and vitamin D</li></ul>
           </div>
         </li>
-        <li>
+        <li data-week="5">
           <span class="num" aria-hidden="true">5</span>
           <div class="sbody">
+            <p class="sdate"><span>Week 5 · Wed, Nov 25</span><span class="state"></span></p>
             <h3>Food Safety, Storage and Growing Food</h3>
             <p>Keep food safe, waste less, and grow some of your own.</p>
             <ul class="topics"><li>Safe handling and storage</li><li>Freezer meals for pain days</li><li>Community fridges and container gardens</li></ul>
           </div>
         </li>
       </ol>
-      <p class="more">Still to come: food security and advocacy, cultural food exchange, and cooking labs from the Simpli Nutri-Life menu.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="photos" hidden>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Week by week</p>
+        <h2>Inside the kitchen<span class="dot">.</span></h2>
+        <p class="sub">Photos and video from every session. Swipe through each week.</p>
+      </div>
+      <div class="recaps" id="recaps"></div>
     </div>
   </section>
 
@@ -496,7 +586,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
         <h2>Where and when<span class="dot">.</span></h2>
       </div>
       <div class="visit">
-        <div class="vi"><p class="eyebrow">When</p><p class="v">Wednesdays<br>6:00 to 7:30 pm</p></div>
+        <div class="vi"><p class="eyebrow">When</p><p class="v">Wednesdays, 6:00 to 7:30 pm<br>October 28 to November 25</p></div>
         <div class="vi">
           <p class="eyebrow">Where</p>
           <p class="v">Vaughan Community Health Centre<br>9401 Jane St, Suite 106 (Entrance A)<br>Maple, ON L6A 4H7</p>
@@ -505,6 +595,43 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
         <div class="vi"><p class="eyebrow">Getting there</p><p class="v">YRT transportation support is provided. Mention it when you register.</p></div>
         <div class="vi"><p class="eyebrow">Who it's for</p><p class="v">People living with sickle cell disease, plus caregivers and family.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section class="sec panel" id="resources">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Resources</p>
+        <h2>More support near you<span class="dot">.</span></h2>
+        <p class="sub">Free services for people living with sickle cell disease, their families, and anyone who could use a hand with food.</p>
+      </div>
+      <ul class="res">
+        <li class="rs">
+          <span class="tag">Sickle cell support</span>
+          <h3>Sickle Cell Awareness Group of Ontario</h3>
+          <p>Peer and parent support networks, learning sessions, scholarships, and small emergency grants for people living with sickle cell.</p>
+          <div class="links"><a href="tel:+14167454267">416-745-4267</a><a href="https://sicklecellanemia.ca/" target="_blank" rel="noopener">sicklecellanemia.ca</a></div>
+        </li>
+        <li class="rs">
+          <span class="tag">Health advice</span>
+          <h3>Health811</h3>
+          <p>Free advice from a registered nurse, 24 hours a day. No health card needed. Phone, online chat, and interpretation in many languages.</p>
+          <div class="links"><a href="tel:811">Call 811 (TTY 711)</a><a href="https://health811.ontario.ca/" target="_blank" rel="noopener">health811.ontario.ca</a></div>
+        </li>
+        <li class="rs">
+          <span class="tag">Food</span>
+          <h3>Vaughan Food Bank</h3>
+          <p>For Vaughan residents in financial need. Bring proof of address and income. Registration and pickup are Thursday and Friday, 10 am to 3:30 pm, at 5732 Hwy 7, Units 3 and 4, Woodbridge.</p>
+          <div class="links"><a href="tel:+19058512333">905-851-2333</a><a href="https://www.vaughanfoodbank.ca/" target="_blank" rel="noopener">vaughanfoodbank.ca</a></div>
+        </li>
+        <li class="rs">
+          <span class="tag">Community services</span>
+          <h3>211 Ontario</h3>
+          <p>Free, confidential help finding food programs, housing, income support, and other services near you.</p>
+          <div class="links"><a href="tel:211">Call 2-1-1</a><a href="https://211ontario.ca/" target="_blank" rel="noopener">211ontario.ca</a></div>
+        </li>
+      </ul>
+      <p class="emerg"><b>In an emergency</b><span>Call 911 or go to the nearest emergency department.</span></p>
     </div>
   </section>
 
@@ -588,7 +715,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
       <p class="foot-name">Simpli Nutri-Life Cooking Program</p>
     </div>
     <p>In partnership with Vaughan Community Health Centre, Anchor and Ontario Health.</p>
-    <p class="ig">Follow our Instagram page <a href="https://www.instagram.com/simplynutrilifeco/" target="_blank" rel="noopener">@simplynutrilifeco</a> for more information and daily updates.</p>
+    <p class="ig">Follow our Instagram page <a href="https://www.instagram.com/simplinutrilife/" target="_blank" rel="noopener">@simplinutrilife</a> for more information and daily updates.</p>
     <p class="fine">Simpli Nutri-Life shares general nutrition information. Talk to your care team about your own needs.</p>
   </div>
 </footer>
@@ -596,10 +723,43 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 <dialog class="rdlg" id="rdlg" aria-labelledby="rdTitle">
   <div class="rd" id="rdBody"></div>
 </dialog>
+<div id="printArea"></div>
 
 <script>
 (function(){
   var root = document.documentElement;
+  var framed = false;
+  try { framed = window.self !== window.top; } catch (e) { framed = true; }
+  if (framed) root.classList.add('framed');
+
+  /* Session dates for this run (Toronto time) */
+  var SESSIONS = [
+    {week: 1, label: 'Wed, Oct 28', long: 'Wednesday, October 28', start: '2026-10-28T18:00:00-04:00', end: '2026-10-28T19:30:00-04:00'},
+    {week: 2, label: 'Wed, Nov 4', long: 'Wednesday, November 4', start: '2026-11-04T18:00:00-05:00', end: '2026-11-04T19:30:00-05:00'},
+    {week: 3, label: 'Wed, Nov 11', long: 'Wednesday, November 11', start: '2026-11-11T18:00:00-05:00', end: '2026-11-11T19:30:00-05:00'},
+    {week: 4, label: 'Wed, Nov 18', long: 'Wednesday, November 18', start: '2026-11-18T18:00:00-05:00', end: '2026-11-18T19:30:00-05:00'},
+    {week: 5, label: 'Wed, Nov 25', long: 'Wednesday, November 25', start: '2026-11-25T18:00:00-05:00', end: '2026-11-25T19:30:00-05:00'}
+  ];
+  var now = Date.now(), nextSession = null, liveSession = null;
+  SESSIONS.forEach(function(s){
+    var a = Date.parse(s.start), b = Date.parse(s.end);
+    if (now >= a && now < b) liveSession = s;
+    else if (a > now && !nextSession) nextSession = s;
+  });
+  var nextEl = document.getElementById('nextSession');
+  if (nextEl) {
+    if (liveSession) { nextEl.textContent = 'Happening now: Week ' + liveSession.week + ', until 7:30 pm'; nextEl.classList.add('live'); }
+    else if (nextSession) nextEl.textContent = 'Next session: ' + nextSession.long + ', 6:00 pm';
+    else nextEl.textContent = 'This run wrapped up on November 25. Follow @simplinutrilife for the next one.';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.sessions > li[data-week]'), function(li){
+    var s = SESSIONS[+li.getAttribute('data-week') - 1];
+    if (!s) return;
+    var st = li.querySelector('.state');
+    if (s === liveSession) { li.classList.add('is-next'); st.textContent = 'Today'; }
+    else if (s === nextSession) { li.classList.add('is-next'); st.textContent = 'Next'; }
+    else if (Date.parse(s.end) <= now) { li.classList.add('is-done'); st.textContent = 'Done'; }
+  });
 
   /* Logo travels from the hero into the header as the page scrolls (mouse and trackpad screens).
      Touch screens get a lighter version, because scroll-driven script lags behind finger scrolling there. */
@@ -1299,12 +1459,15 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
       grid.appendChild(card(r, RECIPES.length > 1 && i === RECIPES.length - 1));
     });
     var next = (RECIPES.length ? RECIPES[RECIPES.length - 1].week : 0) + 1;
-    var soon = el('li', 'soon');
-    soon.appendChild(el('span', 'eyebrow', 'Coming soon'));
-    soon.appendChild(el('span', 'soon-wk', 'Week ' + next));
-    soon.appendChild(el('span', 'soon-tx', 'A new recipe is added after every Wednesday session.'));
-    grid.appendChild(soon);
-    fitSoon();
+    var nextDate = SESSIONS[next - 1];
+    if (nextDate) {
+      var soon = el('li', 'soon');
+      soon.appendChild(el('span', 'eyebrow', 'Coming soon'));
+      soon.appendChild(el('span', 'soon-wk', 'Week ' + next));
+      soon.appendChild(el('span', 'soon-tx', 'Added after the session on ' + nextDate.long + '.'));
+      grid.appendChild(soon);
+      fitSoon();
+    }
 
     exGrid.textContent = '';
     var intro = el('li', 'ex-intro');
@@ -1420,10 +1583,32 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
     }
 
     var foot = el('div', 'rd-foot');
+    var pb2 = el('button', 'btn btn-solid', 'Print recipe'); pb2.type = 'button'; pb2.setAttribute('data-print', '');
     var cb2 = el('button', 'btn btn-line', 'Close recipe'); cb2.type = 'button'; cb2.setAttribute('data-close', '');
+    foot.appendChild(pb2);
     foot.appendChild(cb2);
     rdBody.appendChild(foot);
   }
+
+  /* Print the open recipe on its own, with the program name at the top */
+  var printArea = document.getElementById('printArea');
+  function printRecipe(){
+    printArea.textContent = '';
+    var head = el('div', 'pr-head');
+    var lg = el('span', 'logo'); lg.setAttribute('aria-hidden', 'true');
+    head.appendChild(lg);
+    head.appendChild(el('b', '', 'Simpli Nutri-Life Cooking Program'));
+    head.appendChild(el('span', 'pr-site', 'simplinutrilife.com'));
+    printArea.appendChild(head);
+    var copy = rdBody.cloneNode(true);
+    copy.removeAttribute('id');
+    Array.prototype.forEach.call(copy.querySelectorAll('[data-close],[data-print],.rd-foot,.x'), function(n){ n.remove(); });
+    Array.prototype.forEach.call(copy.querySelectorAll('[id]'), function(n){ n.removeAttribute('id'); });
+    Array.prototype.forEach.call(copy.querySelectorAll('.chip'), function(c){ c.textContent = '\u2610 ' + c.textContent; });
+    printArea.appendChild(copy);
+    window.print();
+  }
+  window.addEventListener('afterprint', function(){ printArea.textContent = ''; });
 
   function afterClose(){
     root.classList.remove('lock');
@@ -1446,6 +1631,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
   dlg.addEventListener('click', function(ev){
     if (ev.target === dlg) { closeRecipe(); return; }
     if (ev.target.closest && ev.target.closest('[data-close]')) closeRecipe();
+    if (ev.target.closest && ev.target.closest('[data-print]')) printRecipe();
   });
   [grid, exGrid].forEach(function(g){
     g.addEventListener('click', function(ev){
@@ -1453,6 +1639,184 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
       if (b) openRecipe(b.getAttribute('data-recipe'), b);
     });
   });
+
+  /* Week-by-week photos and video. Newest week shows first. */
+  var RECAPS = [
+    {week: 1, title: 'Tropical Smoothie', items: [
+        {
+          "type": "photo",
+          "src": "media/week1/01.jpg",
+          "alt": "The Week 1 group at Vaughan Community Health Centre",
+          "ar": 1.3333
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/02.jpg",
+          "alt": "The lesson: how sickle cell changes red blood cells",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/03.jpg",
+          "alt": "The Tropical Smoothie recipe, taped up in the kitchen",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/04.jpg",
+          "alt": "Spinach and the food processor, ready to go",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/05.jpg",
+          "alt": "Cutting fresh mango",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/06.jpg",
+          "alt": "Sliced banana and mango",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/07.jpg",
+          "alt": "A plate of sliced banana",
+          "ar": 0.75
+        },
+        {
+          "type": "video",
+          "src": "media/week1/08.mp4",
+          "poster": "media/week1/08.jpg",
+          "alt": "Blending the smoothie",
+          "ar": 0.5625
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/09.jpg",
+          "alt": "Adding the ingredients",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/10.jpg",
+          "alt": "Everyone at work in the kitchen",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/11.jpg",
+          "alt": "Bowls, yogurt and granola for toppings",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/12.jpg",
+          "alt": "The finished smoothie",
+          "ar": 0.75
+        },
+        {
+          "type": "photo",
+          "src": "media/week1/13.jpg",
+          "alt": "Veggie chips on the side",
+          "ar": 0.75
+        }
+      ]}
+  ];
+  var ARROW = function(d){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (d < 0 ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7') + '"/></svg>'; };
+  var reduceMotion = reduce;
+  function renderRecaps(){
+    var wrap = document.getElementById('recaps');
+    var sec = document.getElementById('photos');
+    if (!wrap || !sec || !RECAPS.length) return;
+    sec.hidden = false;
+    RECAPS.slice().reverse().forEach(function(rc){
+      var s = SESSIONS[rc.week - 1];
+      var art = el('article', 'recap');
+      var head = el('div', 'recap-head');
+      var ht = el('div');
+      ht.appendChild(el('p', 'eyebrow', 'Week ' + rc.week + (s ? ' · ' + s.label : '')));
+      ht.appendChild(el('h3', '', rc.title));
+      head.appendChild(ht);
+      var nav = el('div', 'recap-nav');
+      var count = el('span', 'count', '1 / ' + rc.items.length);
+      count.setAttribute('aria-live', 'polite');
+      var prev = el('button', 'arrow'); prev.type = 'button'; prev.innerHTML = ARROW(-1); prev.setAttribute('aria-label', 'Previous photo');
+      var nxt = el('button', 'arrow'); nxt.type = 'button'; nxt.innerHTML = ARROW(1); nxt.setAttribute('aria-label', 'Next photo');
+      nav.appendChild(count); nav.appendChild(prev); nav.appendChild(nxt);
+      head.appendChild(nav);
+      art.appendChild(head);
+      var strip = el('ul', 'strip');
+      strip.setAttribute('aria-label', 'Week ' + rc.week + ' photos and video');
+      strip.tabIndex = 0;
+      rc.items.forEach(function(it, i){
+        var li = el('li', 'shot');
+        li.style.setProperty('--ar', it.ar);
+        var box = el('div', 'media');
+        if (it.type === 'video') {
+          var v = document.createElement('video');
+          v.muted = true; v.loop = true; v.playsInline = true;
+          v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+          v.preload = 'none'; v.poster = it.poster; v.src = it.src;
+          v.setAttribute('aria-label', it.alt);
+          if (reduceMotion) v.controls = true; else v.setAttribute('data-auto', '');
+          box.appendChild(v);
+          box.appendChild(el('span', 'badge', 'Video'));
+        } else {
+          var img = document.createElement('img');
+          img.src = it.src; img.alt = it.alt; img.decoding = 'async';
+          if (i > 1) img.loading = 'lazy';
+          box.appendChild(img);
+        }
+        li.appendChild(box);
+        li.appendChild(el('p', 'cap', it.alt));
+        strip.appendChild(li);
+      });
+      art.appendChild(strip);
+      wrap.appendChild(art);
+
+      var shots = Array.prototype.slice.call(strip.children);
+      var current = 0;
+      function sync(){
+        var x = strip.scrollLeft, best = 0, bd = Infinity;
+        shots.forEach(function(sh, i){ var d = Math.abs(sh.offsetLeft - x); if (d < bd) { bd = d; best = i; } });
+        var atEnd = x + strip.clientWidth >= strip.scrollWidth - 4;
+        current = atEnd ? shots.length - 1 : best;
+        count.textContent = (current + 1) + ' / ' + shots.length;
+        prev.disabled = x <= 4;
+        nxt.disabled = atEnd;
+      }
+      function go(d){
+        var i = Math.max(0, Math.min(shots.length - 1, current + d));
+        strip.scrollTo({left: shots[i].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth'});
+      }
+      prev.addEventListener('click', function(){ go(-1); });
+      nxt.addEventListener('click', function(){ go(1); });
+      var t = 0;
+      strip.addEventListener('scroll', function(){ if (!t) t = requestAnimationFrame(function(){ t = 0; sync(); }); }, {passive: true});
+      strip.addEventListener('keydown', function(e){
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+
+    /* Short clips play on their own while on screen, muted, and pause when scrolled away */
+    var vids = wrap.querySelectorAll('video[data-auto]');
+    if ('IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          var v = en.target;
+          if (en.isIntersecting && en.intersectionRatio > 0.6) { var p = v.play(); if (p && p.catch) p.catch(function(){ v.controls = true; }); }
+          else v.pause();
+        });
+      }, {threshold: [0, 0.6, 1]});
+      Array.prototype.forEach.call(vids, function(v){ vio.observe(v); });
+    } else Array.prototype.forEach.call(vids, function(v){ v.controls = true; });
+  }
+  renderRecaps();
 
   /* Copy buttons, with a select-the-text fallback */
   function selectNode(el){
@@ -1507,7 +1871,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
     var lines = [
       'Hi Zaynah,',
       '',
-      'I would like to register for the Simpli Nutri-Life Cooking Program on Wednesdays at Vaughan Community Health Centre.',
+      'I would like to register for the Simpli Nutri-Life Cooking Program on Wednesdays at Vaughan Community Health Centre' + (nextSession ? ', starting ' + nextSession.long + '.' : '.'),
       '',
       'Name: ' + name.value.trim(),
       'Best way to reach me: ' + contact.value.trim(),

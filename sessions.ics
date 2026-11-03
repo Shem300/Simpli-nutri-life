@@ -1,0 +1,82 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Simpli Nutri-Life//Sessions//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Simpli Nutri-Life
+BEGIN:VEVENT
+UID:simpli-nutri-life-2026-week1@simplinutrilife.com
+DTSTAMP:20261103T060000Z
+DTSTART:20261028T220000Z
+DTEND:20261028T233000Z
+SUMMARY:Simpli Nutri-Life Cooking Program (Week 1)
+LOCATION:Vaughan Community Health Centre\, 9401 Jane St\, Suite 106 (Entrance A)\, Maple\, ON L6A 4H7
+DESCRIPTION:Weekly cooking and nutrition session. Details and recipes: https://simplinutrilife.com/
+URL:https://simplinutrilife.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Simpli Nutri-Life tonight at 6 pm
+TRIGGER:-PT3H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:simpli-nutri-life-2026-week2@simplinutrilife.com
+DTSTAMP:20261103T060000Z
+DTSTART:20261104T230000Z
+DTEND:20261105T003000Z
+SUMMARY:Simpli Nutri-Life Cooking Program (Week 2)
+LOCATION:Vaughan Community Health Centre\, 9401 Jane St\, Suite 106 (Entrance A)\, Maple\, ON L6A 4H7
+DESCRIPTION:Weekly cooking and nutrition session. Details and recipes: https://simplinutrilife.com/
+URL:https://simplinutrilife.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Simpli Nutri-Life tonight at 6 pm
+TRIGGER:-PT3H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:simpli-nutri-life-2026-week3@simplinutrilife.com
+DTSTAMP:20261103T060000Z
+DTSTART:20261111T230000Z
+DTEND:20261112T003000Z
+SUMMARY:Simpli Nutri-Life Cooking Program (Week 3)
+LOCATION:Vaughan Community Health Centre\, 9401 Jane St\, Suite 106 (Entrance A)\, Maple\, ON L6A 4H7
+DESCRIPTION:Weekly cooking and nutrition session. Details and recipes: https://simplinutrilife.com/
+URL:https://simplinutrilife.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Simpli Nutri-Life tonight at 6 pm
+TRIGGER:-PT3H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:simpli-nutri-life-2026-week4@simplinutrilife.com
+DTSTAMP:20261103T060000Z
+DTSTART:20261118T230000Z
+DTEND:20261119T003000Z
+SUMMARY:Simpli Nutri-Life Cooking Program (Week 4)
+LOCATION:Vaughan Community Health Centre\, 9401 Jane St\, Suite 106 (Entrance A)\, Maple\, ON L6A 4H7
+DESCRIPTION:Weekly cooking and nutrition session. Details and recipes: https://simplinutrilife.com/
+URL:https://simplinutrilife.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Simpli Nutri-Life tonight at 6 pm
+TRIGGER:-PT3H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:simpli-nutri-life-2026-week5@simplinutrilife.com
+DTSTAMP:20261103T060000Z
+DTSTART:20261125T230000Z
+DTEND:20261126T003000Z
+SUMMARY:Simpli Nutri-Life Cooking Program (Week 5)
+LOCATION:Vaughan Community Health Centre\, 9401 Jane St\, Suite 106 (Entrance A)\, Maple\, ON L6A 4H7
+DESCRIPTION:Weekly cooking and nutrition session. Details and recipes: https://simplinutrilife.com/
+URL:https://simplinutrilife.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Simpli Nutri-Life tonight at 6 pm
+TRIGGER:-PT3H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
