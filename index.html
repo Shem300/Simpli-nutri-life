@@ -163,6 +163,17 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 .sym{font-family:var(--display);font-weight:400;font-size:2.25rem;line-height:1}
 .nm{font-weight:700;font-size:var(--fs-xs);letter-spacing:.1em;text-transform:uppercase}
 .tx{font-size:var(--fs-sm);color:var(--band-muted);line-height:1.45}
+.watch{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,56px);align-items:center;padding-top:clamp(32px,4vw,48px);position:relative}
+.watch::before{content:"";position:absolute;inset:0 0 auto;height:8px;background:radial-gradient(circle,var(--band-dots) 2px,transparent 2.6px) 0 50%/14px 8px repeat-x}
+.watch-text{display:grid;gap:12px}
+.watch-text .eyebrow{color:var(--band-accent)}
+.watch-text h3{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height:1.02;margin:0}
+.watch-text p{max-width:40ch}
+.watch-vid{margin:0;display:grid;gap:10px;min-width:0}
+.vid{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;border:2px solid var(--band-fg);display:grid;place-items:center}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.credit{font-size:var(--fs-sm);color:var(--band-muted);line-height:1.5}
+.credit a{color:var(--band-fg);font-weight:700;text-decoration:underline 2px;text-decoration-color:var(--band-dots);text-underline-offset:4px}
 .care{grid-column:1/-1;display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border-radius:18px;border:2px dashed var(--band-dots);font-size:var(--fs-sm);max-width:none}
 .care b{font-family:var(--display);font-weight:400;font-size:1.125rem;white-space:nowrap}
 
@@ -367,7 +378,7 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
 
 @media (max-width:980px){
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .about,.reg{grid-template-columns:1fr}
+  .about,.reg,.watch{grid-template-columns:1fr}
 }
 @media (max-width:760px){
   .faq .ans{padding-right:0}
@@ -510,6 +521,19 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
         <li class="tile"><span class="sym">Ω-3</span><span class="nm">Omega-3</span><span class="tx">Healthy fats from salmon, walnuts and chia.</span></li>
         <li class="tile"><span class="sym">H₂O</span><span class="nm">Water</span><span class="tx">Dehydration can trigger a crisis. Sip all day.</span></li>
       </ul>
+      <div class="watch">
+        <div class="watch-text">
+          <p class="eyebrow">Watch</p>
+          <h3>What is sickle cell<span class="dot">?</span></h3>
+          <p>A short animated video (4:34) on how one small change in hemoglobin changes the shape of red blood cells, and what that means for the rest of the body.</p>
+        </div>
+        <figure class="watch-vid">
+          <div class="vid" id="tedVideo">
+            <a class="btn btn-solid" href="https://www.ted.com/talks/amber_m_yates_how_this_disease_changes_the_shape_of_your_cells" target="_blank" rel="noopener">Watch the video on TED.com</a>
+          </div>
+          <figcaption class="credit">Video: &ldquo;How this disease changes the shape of your cells&rdquo; by Amber M. Yates, from TED&#8209;Ed. &copy; TED Conferences, LLC. <a href="https://www.ted.com/talks/amber_m_yates_how_this_disease_changes_the_shape_of_your_cells" target="_blank" rel="noopener">Watch on TED.com</a></figcaption>
+        </figure>
+      </div>
       <p class="care"><b>Check with your care team</b><span>Bring questions about supplements, fluids and iron to your doctor or dietitian. If you get regular blood transfusions, check with them before adding iron-rich foods or supplements.</span></p>
     </div>
   </section>
@@ -799,6 +823,19 @@ h2{font-family:var(--display);font-weight:400;font-size:var(--fs-xl);line-height
   var framed = false;
   try { framed = window.self !== window.top; } catch (e) { framed = true; }
   if (framed) root.classList.add('framed');
+
+  /* TED's own player for the sickle cell explainer (the claude.ai preview can't embed other sites, so it keeps the link) */
+  var tedBox = document.getElementById('tedVideo');
+  if (tedBox && !framed) {
+    var tf = document.createElement('iframe');
+    tf.src = 'https://embed.ted.com/talks/amber_m_yates_how_this_disease_changes_the_shape_of_your_cells';
+    tf.title = 'How this disease changes the shape of your cells, by Amber M. Yates, TED-Ed';
+    tf.loading = 'lazy';
+    tf.allow = 'autoplay; fullscreen; encrypted-media';
+    tf.setAttribute('allowfullscreen', '');
+    tedBox.textContent = '';
+    tedBox.appendChild(tf);
+  }
 
   /* Session dates for this run (Toronto time) */
   var SESSIONS = [
