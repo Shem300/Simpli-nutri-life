@@ -131,11 +131,9 @@ img{display:block;max-width:100%}
 .next.live::before{background:var(--green-cta);animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.3}}
 .partners{font-size:14px;color:var(--ink-soft);max-width:44ch}
-.hero-mark{display:grid;place-items:center;padding:clamp(40px,5vw,72px);background:var(--mint);overflow:hidden}
-.hero-mark .logo{width:clamp(240px,28vw,400px);box-shadow:0 0 6px rgba(0,0,0,.12),0 18px 32px -12px rgba(0,0,0,.28)}
-/* The logo rolls onto the page once, on load */
-.roll{animation:roll 1.4s cubic-bezier(.2,.8,.2,1) .15s both;will-change:transform,opacity;backface-visibility:hidden}
-@keyframes roll{from{transform:rotate(-240deg) scale(.45);opacity:0}55%{opacity:1}}
+/* The plate-to-logo reel plays once on arrival and stops on the logo. Its crate matches the reel's own background so the edges disappear */
+.hero-mark{position:relative;min-height:360px;background:#F9F5EA;overflow:hidden}
+.hero-reel{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#F9F5EA}
 
 /* facts */
 .facts-sec{padding-block:clamp(24px,3vw,40px) clamp(48px,6vw,72px)}
@@ -410,8 +408,7 @@ img{display:block;max-width:100%}
   .split-media,.promo .split-media{order:-1;min-height:0;aspect-ratio:4/3}
   .promo.flip .split-media{order:-1}
   .split-copy{padding-block:36px 48px}
-  .hero-mark{order:-1;padding:32px 16px}
-  .hero-mark .logo{width:min(58vw,240px)}
+  .hero-mark{order:-1;min-height:0;height:min(100vw,380px)}
   .lede,.promo-body{font-size:18px}
   .visit{grid-template-columns:1fr}
   .faq .ans{padding-right:0}
@@ -506,7 +503,7 @@ img{display:block;max-width:100%}
       <p class="next" id="nextSession">Wednesdays, October 28 to November 25</p>
       <p class="partners">In partnership with Vaughan Community Health Centre, Anchor and Ontario Health</p>
     </div>
-    <div class="hero-mark"><span class="logo roll" role="img" aria-label="Simpli Nutri-Life Cooking Program logo"></span></div>
+    <div class="hero-mark"><video class="hero-reel" id="heroReel" src="media/logo-reel.mp4" poster="media/logo-reel-start.jpg" muted autoplay playsinline preload="auto" aria-label="A plate of healthy food turns into the Simpli Nutri-Life Cooking Program logo"></video></div>
   </section>
 
   <section class="cream facts-sec" aria-label="Program details">
@@ -925,6 +922,26 @@ img{display:block;max-width:100%}
   });
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Plate-to-logo reel: plays once when the page opens and stops on the logo.
+     If the reel can't play (motion turned off, low power mode, slow connection), the logo shows instead. */
+  var reel = document.getElementById('heroReel');
+  if (reel) {
+    var END = 'media/logo-reel-end.jpg';
+    var showLogo = function(){
+      reel.removeAttribute('autoplay');
+      try { reel.pause(); } catch (e) {}
+      reel.poster = END;
+      try { if (reel.duration) reel.currentTime = reel.duration; } catch (e) {}
+    };
+    if (reduce) showLogo();
+    else {
+      var pr = reel.play();
+      if (pr && pr.catch) pr.catch(showLogo);
+      reel.addEventListener('error', showLogo);
+      setTimeout(function(){ if (reel.paused && !reel.ended && reel.currentTime === 0) showLogo(); }, 4000);
+    }
+  }
 
   /* Weekly recipes from the sessions. To add a new week, copy the last entry in RECIPES and change the details. */
   var RECIPES = [
