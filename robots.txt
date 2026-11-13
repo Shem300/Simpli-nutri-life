@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://simplinutrilife.com/sitemap.xml
